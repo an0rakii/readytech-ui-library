@@ -1,0 +1,43 @@
+import RtStepper from './stepper.vue';
+import { VStepper, VStepperStep, VCard } from 'vuetify/lib';
+
+export default {
+  title: 'Components/Stepper',
+  component: RtStepper,
+  argTypes: {
+    modelValue: { control: 'number' },
+    vertical: { control: 'boolean' },
+  },
+};
+
+const Template = (args) => ({
+  components: { RtStepper, VStepper, VStepperStep, VCard },
+  setup() {
+    return { args };
+  },
+  template: `
+    <RtStepper v-bind="args" @update:modelValue="args.modelValue = $event">
+      <v-stepper-step :step="0" label="Step 1">
+        <v-card>Step 1 content goes here</v-card>
+      </v-stepper-step>
+      <v-stepper-step :step="1" label="Step 2">
+        <v-card>Step 2 content goes here</v-card>
+      </v-stepper-step>
+      <v-stepper-step :step="2" label="Step 3">
+        <v-card>Step 3 content goes here</v-card>
+      </v-stepper-step>
+    </RtStepper>
+  `,
+});
+
+export const Default = Template.bind({});
+Default.args = {
+  modelValue: 0,
+  vertical: false,
+};
+
+export const Vertical = Template.bind({});
+Vertical.args = {
+  modelValue: 0,
+  vertical: true,
+};

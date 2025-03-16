@@ -1,0 +1,18 @@
+.v-tabs {
+    margin-top: 24px;
+  }
+  
+  .v-tab {
+    text-transform: none;
+    font-weight: 500;
+  }
+  
+  .v-tab--active {
+    font-weight: 600;
+  }
+  
+  .v-card {
+    padding: 16px;
+    box-shadow: none;
+  }
+  
