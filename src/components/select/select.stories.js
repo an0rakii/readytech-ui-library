@@ -55,3 +55,15 @@ WithChips.args = {
   multiple: true,
   chips: true,
 };
+
+
+export const WithPrependIcon = Template.bind({});
+WithPrependIcon.args = {
+  items: ['Item 1', 'Item 2', 'Item 3'],
+  label: 'Select Items',
+  density: 'default',
+  multiple: true,
+  chips: true,
+  prependIcon: "mdi-calendar",
+  showPrependIcon: "true",
+};

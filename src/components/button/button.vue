@@ -34,7 +34,7 @@
 import { computed } from 'vue';
 
 export default {
-  name: 'RtButton',
+  name: "RtButton",
 
   props: {
     // Button text label

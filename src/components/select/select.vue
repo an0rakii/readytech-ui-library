@@ -16,12 +16,17 @@
     :error-messages="errorMessages"
     :menu-props="menuProps"
     @update:modelValue="handleSelection"
-  />
+  >
+    <!-- Custom slot for the prepend icon inside the select field -->
+    <template v-if="showPrependIcon && prependIcon" v-slot:prepend-inner>
+      <v-icon>{{ prependIcon }}</v-icon>
+    </template>
+  </v-select>
 </template>
 
 <script>
 export default {
-  name: 'RtSelect',
+  name: "RtSelect",
   props: {
     items: {
       type: Array,
@@ -37,10 +42,10 @@ export default {
     },
     density: {
       type: String,
-      default: 'compact',
+      default: "compact",
       validator(value) {
-        return ['comfortable', 'compact', 'default'].includes(value);
-      }
+        return ["comfortable", "compact", "default"].includes(value);
+      },
     },
     chips: {
       type: Boolean,
@@ -49,6 +54,14 @@ export default {
     multiple: {
       type: Boolean,
       default: false,
+    },
+    prependIcon: {
+      type: String,
+      default: "", // Default to no icon
+    },
+    showPrependIcon: {
+      type: Boolean,
+      default: false, // Determines if the icon is shown
     },
   },
   data() {
@@ -59,22 +72,22 @@ export default {
   computed: {
     computedItems() {
       if (this.multiple) {
-        return [{ text: 'Select All', value: 'all' }, ...this.items];
+        return [{ text: "Select All", value: "all" }, ...this.items];
       }
       return this.items;
-    }
+    },
   },
   methods: {
     handleSelection(value) {
-      if (this.multiple && value.includes('all')) {
+      if (this.multiple && value.includes("all")) {
         if (this.selectedItem.length === this.items.length + 1) {
           this.selectedItem = [];
         } else {
-          this.selectedItem = this.items.map(item => item.value);
+          this.selectedItem = this.items.map((item) => item.value);
         }
       }
-    }
-  }
+    },
+  },
 };
 </script>
 

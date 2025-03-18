@@ -1,4 +1,5 @@
 import RtText from "./input.vue";
+import RtIcon from "../icon/icon.vue";
 
 export default {
   title: "Form/Input",
@@ -12,6 +13,7 @@ export default {
     errorMessages: { control: "text" },
     hint: { control: "text" },
     prependIcon: { control: "text" },
+    appendIcon: { control: "text" },
     clearable: { control: "boolean" },
     autocomplete: { control: "select", options: ["off", "on"] },
     clearable: { control: "boolean" },
@@ -23,7 +25,16 @@ const Template = (args) => ({
   setup() {
     return { args };
   },
-  template: '<RtText v-bind="args" />',
+  template: `
+    <RtText v-bind="args">
+      <template v-if="args.prependIcon" #prepend-inner>
+        <v-icon>{{ args.prependIcon }}</v-icon>
+      </template>
+      <template v-if="args.appendIcon" #append-inner>
+        <v-icon>{{ args.appendIcon }}</v-icon>
+      </template>
+    </RtText>
+  `,
 });
 
 export const Default = Template.bind({});
@@ -72,7 +83,20 @@ WithPrependIcon.args = {
   disabled: false,
   error: false,
   errorMessages: [],
-  prependIcon: "mdi-search", // Example icon from Material Design Icons
+  prependIcon: "mdi-email", // Example icon from Material Design Icons
+  clearable: false,
+  autocomplete: "off",
+};
+
+export const WithAppendIcon = Template.bind({});
+WithAppendIcon.args = {
+  label: "Input with Prepend Icon",
+  placeholder: "Type here",
+  modelValue: "",
+  disabled: false,
+  error: false,
+  errorMessages: [],
+  appendIcon: "mdi-email", // Example icon from Material Design Icons
   clearable: false,
   autocomplete: "off",
 };

@@ -1,5 +1,5 @@
 // DialogComponent.stories.js
-import RtDialog from './dialog.vue';
+import RtDialog from './Dialog.vue';
 
 export default {
   title: 'Components/Dialog',

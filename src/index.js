@@ -64,6 +64,9 @@ import RtTimePickerUI from "./components/timepicker-ui/timepicker-ui.vue";
 import RtToolBar from "./components/toolbar/toolbar.vue";
 import RtTreeview from "./components/treeview/treeview.vue";
 import RtContainer from "./components/container/container.vue";
+import RtTooltip from "./components/tooltip/tooltip.vue";
+import RtHorizontalRule from "./components/horizontal-rule/horizontal-rule.vue";
+import RtButtonGroup from "./components/button-group/button-group.vue";
 
 
 // import { RtTimePicker, RtTimePickerUI } from "dist/readytech-ui-library.es";
@@ -129,6 +132,9 @@ export default {
         app.component("RtToolBar", RtToolBar);
         app.component("RtTreeview", RtTreeview);
         app.component("RtContainer", RtContainer);
+        app.component("RtTooltip", RtTooltip);
+        app.component("RtHorizontalRule", RtHorizontalRule);
+        app.component("RtButtonGroup", RtButtonGroup);
     }
 };
 

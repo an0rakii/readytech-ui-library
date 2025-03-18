@@ -31,8 +31,28 @@ export default {
 
 <style scoped>
 .v-container {
-  background-color: #d8d8d8;
+  background-color: #D2D4D5;
 }
+
+.v-container .light-grey {
+  background-color: #F4F4F4;
+}
+
+.v-container.white {
+  background-color: #fff;
+}
+
+.v-container.buttons-content{
+  padding: 18px 0px 18px 0px !important;
+}
+
+.v-container.content{
+  padding-top: 16px;
+  padding-left: 24px;
+  padding-bottom: 16px;
+  padding-right: 24px;
+}
+
 
 @media (min-width: 960px) {
     .v-container {

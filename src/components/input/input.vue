@@ -5,20 +5,38 @@
     :label="label"
     :placeholder="placeholder"
     :disabled="disabled"
-    :error="error"
-    :error-messages="errorMessages"
-    :prepend-icon="prependIcon"
+    :error="hasError"
+    :error-messages="computedErrorMessages"
+    :prependIcon="prependIcon"
+    :appendIcon="prependIcon"
     clearable
     :hint="hint"
     :autocomplete="autocomplete"
     @click:clear="handleClear"
-  />
+    @blur="validate"
+  >
+    <!-- Custom slot for the prepend icon inside the input field -->
+    <template v-if="prependIcon" v-slot:prepend-inner>
+      <slot name="prepend-inner"></slot>
+    </template>
+    <template v-if="appendIcon" v-slot:append-inner>
+      <slot name="append-inner"></slot>
+    </template>
+  </v-text-field>
 </template>
 
 <script>
 export default {
   name: "RtText",
   props: {
+    appendIcon: {
+      type: String,
+      default: "",
+    },
+    prependIcon: {
+      type: String,
+      default: "",
+    },
     label: {
       type: String,
       default: "Input Field",
@@ -47,18 +65,23 @@ export default {
       type: [String, Array],
       default: () => [],
     },
-    prependIcon: {
-      type: String,
-      default: '', // Default to no icon
-    },
     clearable: {
       type: Boolean,
-      default: false, // Default is not clearable
+      default: false,
     },
     autocomplete: {
       type: String,
-      default: 'off', // Default is 'off'
+      default: "off",
     },
+    rules: {
+      type: Array,
+      default: () => [],
+    },
+  },
+  data() {
+    return {
+      localErrorMessages: [],
+    };
   },
   computed: {
     inputValue: {
@@ -67,20 +90,41 @@ export default {
       },
       set(value) {
         this.$emit("update:modelValue", value);
+        this.validate();
       },
     },
     inputProps() {
-      return { ...this.$props }; // Pass all props to the v-text-field
+      return { ...this.$props };
+    },
+    computedErrorMessages() {
+      return this.localErrorMessages.length ? this.localErrorMessages : this.errorMessages;
+    },
+    hasError() {
+      return this.computedErrorMessages.length > 0;
     },
   },
   methods: {
     handleClear() {
-      this.$emit("clear"); // Emit a custom clear event
+      this.$emit("clear");
+      this.localErrorMessages = [];
+    },
+    validate() {
+      this.localErrorMessages = this.rules
+        .map((rule) => (typeof rule === "function" ? rule(this.modelValue) : true))
+        .filter((message) => message !== true);
     },
   },
 };
 </script>
 
 <style scoped>
+/* Hide the default Vuetify prepend icon wrapper */
+::v-deep(.v-input__prepend) {
+  display: none !important;
+}
+/* Hide the default Vuetify append icon wrapper */
+::v-deep(.v-input__append) {
+  display: none !important;
+}
 /* Add optional styling here if needed */
 </style>
